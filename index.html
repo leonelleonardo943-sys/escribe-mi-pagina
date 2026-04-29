@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi página</title>
+
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        h1 {
+            color: cyan;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="login">
+        <h2>Iniciar sesión</h2>
+
+        <input type="text" id="usuario" placeholder="Usuario"><br><br>
+        <input type="password" id="clave" placeholder="Contraseña"><br><br>
+
+        <button onclick="entrar()">Entrar</button>
+    </div>
+
+    <div id="app" style="display:none;">
+        <h1 id="bienvenida"></h1>
+        <p>Bienvenido a mi app 🚀</p>
+
+        <button onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+
+    <script>
+        function entrar() {
+            let user = document.getElementById("usuario").value;
+
+            localStorage.setItem("usuario", user);
+
+            document.getElementById("login").style.display = "none";
+            document.getElementById("app").style.display = "block";
+
+            document.getElementById("bienvenida").innerText = "Bienvenido " + user;
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem("usuario");
+
+            document.getElementById("app").style.display = "none";
+            document.getElementById("login").style.display = "block";
+        }
+
+        function cargarUsuario() {
+            let user = localStorage.getItem("usuario");
+
+            if (user) {
+                document.getElementById("login").style.display = "none";
+                document.getElementById("app").style.display = "block";
+                document.getElementById("bienvenida").innerText = "Bienvenido " + user;
+            }
+        }
+
+        window.onload = cargarUsuario;
+    </script>
+
+</body>
+</html>
